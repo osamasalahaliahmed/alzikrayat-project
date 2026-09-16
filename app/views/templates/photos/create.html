@@ -1,0 +1,28 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<h1>Upload photo</h1>
+<form action="/photo/store" method="post" enctype="multipart/form-data" data-validate>
+    <input type="hidden" name="csrf"
+               value="{{ csrf }}">
+    <p>
+        <label for="photo">Photo</label><br>
+        <input type="file" name="photo" id="photo" accept="image/*" required>
+    </p>
+    <p>{{ errors.get("photo", "") }}</p>
+    <p>
+        <label for="title">Title</label><br>
+        <input id="title" name="title" type="text" required maxlength="200"
+               value="{{ values.get('title', '') }}"
+               aria-describedby="title-error">
+        <span id="title-error">{{ errors.get('title', '') }}</span>
+    </p>
+    <p>
+        <label for="description">Description (optional)</label><br>
+        <textarea name="description" id="description" maxlength="2000" rows="4">{{ values.get("description", "") }}</textarea>
+        <span>{{ errors.get("description", "") }}</span>
+    </p>
+    <p class="form-error" role="alert"></p>
+    <button type="submit">Upload photo</button>
+</form>
+<p><a href="/photos">Back to photos</a></p>
+{% endblock %}

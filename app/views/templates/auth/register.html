@@ -1,0 +1,75 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<h1>Register</h1>
+<form action="/register" method="post" data-validate>
+    <input type="hidden" name="csrf"
+               value="{{ csrf }}">
+    <div class="field-row">
+    <p>
+        <label for="first_name">First name</label><br>
+        <input id="first_name" name="first_name" type="text" required maxlength="50"
+               autocomplete="given-name" pattern="[\p{L}]+"
+               value="{{ values.get('first_name', '') }}"
+               aria-describedby="first_name-error">
+        <span id="first_name-error">{{ errors.get('first_name', '') }}</span>
+    </p>
+    <p>
+        <label for="last_name">Last name</label><br>
+        <input id="last_name" name="last_name" type="text" required maxlength="50"
+               autocomplete="family-name" pattern="[\p{L}]+"
+               value="{{ values.get('last_name', '') }}"
+               aria-describedby="last_name-error">
+        <span id="last_name-error">{{ errors.get('last_name', '') }}</span>
+    </p>
+    </div>
+    <p>
+        <label for="email">Email</label><br>
+        <input id="email" name="email" type="email" required maxlength="100"
+               autocomplete="email"
+               value="{{ values.get('email', '') }}"
+               aria-describedby="email-error">
+        <span id="email-error">{{ errors.get('email', '') }}</span>
+    </p>
+    <p>
+        <label for="password">Password</label><br>
+        <input id="password" name="password" type="password" required
+               autocomplete="new-password"
+               aria-describedby="password-error">
+        <span id="password-error">{{ errors.get('password', '') }}</span>
+    </p>
+    <p>
+        <label for="confirm_password">Confirm password</label><br>
+        <input id="confirm_password" name="confirm_password" type="password" required
+               autocomplete="new-password"
+               aria-describedby="confirm_password-error">
+        <span id="confirm_password-error">{{ errors.get('confirm_password', '') }}</span>
+    </p>
+    <fieldset>
+    <legend>Optional profile details</legend>
+    <div class="field-row">
+    <p>
+        <label for="location">Location (optional)</label><br>
+        <input id="location" name="location" type="text" maxlength="100"
+               value="{{ values.get('location', '') }}"
+               aria-describedby="location-error">
+        <span id="location-error">{{ errors.get('location', '') }}</span>
+    </p>
+    <p>
+        <label for="occupation">Occupation (optional)</label><br>
+        <input id="occupation" name="occupation" type="text" maxlength="100"
+               value="{{ values.get('occupation', '') }}"
+               aria-describedby="occupation-error">
+        <span id="occupation-error">{{ errors.get('occupation', '') }}</span>
+    </p>
+    </div>
+    <p>
+        <label for="description">Bio (optional)</label><br>
+        <textarea id="description" name="description" rows="3" maxlength="2000">{{ values.get("description", "") }}</textarea>
+        <span>{{ errors.get("description", "") }}</span>
+    </p>
+    </fieldset>
+    <p class="form-error" role="alert"></p>
+    <button type="submit">Create account</button>
+</form>
+<p><a href="/login">Log in</a></p>
+{% endblock %}

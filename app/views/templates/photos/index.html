@@ -1,0 +1,29 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<h1>{{ owner.first_name ~ "'s photos" if owner else "Photos" }}</h1>
+<p><a href="/">Home</a> | <a href="/photos">All photos</a> | <a href="/photos?mine=1">My photos</a> | <a href="/photo/create">Upload photo</a></p>
+{% if owner %}
+<p>{{ owner.location or "" }} {{ owner.occupation or "" }}</p>
+{% if owner.description %}<p>{{ owner.description }}</p>{% endif %}
+{% endif %}
+{% if query.get("deleted") %}<p role="status">Photo deleted.</p>{% endif %}
+{% if photos %}
+<p>
+    <button type="button" data-layout="3" aria-pressed="true">3 columns</button>
+    <button type="button" data-layout="4" aria-pressed="false">4 columns</button>
+    <button type="button" data-layout="1" aria-pressed="false">List</button>
+</p>
+<div id="gallery">
+    {% for photo in photos %}
+    <article>
+        <a href="/photo/{{ photo.id }}"><img src="/media/{{ photo.file_name }}" alt="{{ photo.title }}" width="200" loading="lazy"></a>
+        <p><a href="/photo/{{ photo.id }}">{{ photo.title }}</a></p>
+        <p><a href="/photos?user={{ photo.user_id }}">{{ photo.first_name }} {{ photo.last_name }}</a></p>
+        <time>{{ photo.date_time.strftime("%d %b %Y") }}</time>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<p>No photos yet.</p>
+{% endif %}
+{% endblock %}

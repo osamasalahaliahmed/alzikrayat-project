@@ -1,0 +1,11 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<h1>Delete photo?</h1>
+<p>{{ photo.title }}</p>
+<p>The photo and its comments will be permanently deleted.</p>
+<form action="/photo/{{ photo.id }}/delete" method="post">
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <button type="submit">Delete photo</button>
+</form>
+<p><a href="/photo/{{ photo.id }}">Cancel</a></p>
+{% endblock %}

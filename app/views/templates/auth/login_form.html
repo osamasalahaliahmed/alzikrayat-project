@@ -1,0 +1,25 @@
+{% if lastLogin %}<p>Last login from this computer was {{ lastLogin }}.</p>{% endif %}
+{% if query.get("registered") %}<p role="status">Account created. Log in below.</p>{% endif %}
+{% if errors.get("general") %}<p role="alert">{{ errors.general }}</p>{% endif %}
+<form action="/login" method="post" data-validate>
+    <input type="hidden" name="csrf"
+               value="{{ csrf }}">
+    <p>
+        <label for="email">Email</label><br>
+        <input id="email" name="email" type="email" required maxlength="100"
+               autocomplete="email"
+               value="{{ values.get('email', '') }}"
+               aria-describedby="email-error">
+        <span id="email-error">{{ errors.get('email', '') }}</span>
+    </p>
+    <p>
+        <label for="password">Password</label><br>
+        <input id="password" name="password" type="password" required
+               autocomplete="current-password"
+               aria-describedby="password-error">
+        <span id="password-error">{{ errors.get('password', '') }}</span>
+    </p>
+    <p class="form-error" role="alert"></p>
+    <button type="submit">Log in</button>
+</form>
+<p><a href="/register">Create an account</a></p>

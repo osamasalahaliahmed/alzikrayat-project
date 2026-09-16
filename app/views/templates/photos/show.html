@@ -1,0 +1,23 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<div class="photo-page">
+<h1>{{ photo.title }}</h1>
+{% if query.get("uploaded") %}<p role="status">Photo uploaded.</p>{% endif %}
+<a href="/media/{{ photo.file_name }}" target="_blank" rel="noopener"><img src="/media/{{ photo.file_name }}" alt="{{ photo.title }}" width="600"></a>
+<p><a href="/media/{{ photo.file_name }}" target="_blank" rel="noopener">Full-size photo</a></p>
+<p>By <a href="/photos?user={{ photo.user_id }}">{{ photo.first_name }} {{ photo.last_name }}</a></p>
+<p><time>{{ photo.date_time.strftime("%d %b %Y, %H:%M") }}</time></p>
+{% if photo.description %}<p>{{ photo.description }}</p>{% endif %}
+{% if user.id == photo.user_id %}<p><a href="/photo/{{ photo.id }}/delete">Delete photo</a></p>{% endif %}
+<h2>Comments</h2>
+<div id="comment-list">{% include "photos/comments.html" %}</div>
+<form action="/photo/{{ photo.id }}/comments" method="post" data-comment-form data-validate>
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <label for="comment">Add a comment</label><br>
+    <textarea id="comment" name="comment" rows="3" required maxlength="2000" aria-describedby="comment-status"></textarea>
+    <p id="comment-status" class="form-error" role="status"></p>
+    <button type="submit">Post comment</button>
+</form>
+<p><a href="/photos">Back to photos</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% for comment in comments %}
+<article>
+    <p><a href="/photos?user={{ comment.user_id }}">{{ comment.first_name }} {{ comment.last_name }}</a>
+    <time>{{ comment.date_time.strftime("%d %b %Y, %H:%M") }}</time></p>
+    <p>{{ comment.comment }}</p>
+</article>
+{% else %}
+<p>No comments yet.</p>
+{% endfor %}

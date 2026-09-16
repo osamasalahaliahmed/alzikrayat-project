@@ -1,0 +1,8 @@
+.env
+.venv/
+.tools/
+__pycache__/
+*.pyc
+public/images/uploads/*
+!public/images/uploads/.gitkeep
+

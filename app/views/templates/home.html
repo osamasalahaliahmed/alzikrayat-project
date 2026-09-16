@@ -1,0 +1,16 @@
+{% extends "layout/base.html" %}
+{% block content %}
+{% if user %}
+<p>Hi {{ user.first_name }}</p>
+<p><a href="/photos">Photos</a> | <a href="/photos?mine=1">My photos</a> | <a href="/photo/create">Upload photo</a></p>
+<form action="/logout" method="post">
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <button type="submit">Logout</button>
+</form>
+{% else %}
+<h1>Please Login</h1>
+{% include "auth/login_form.html" %}
+{% endif %}
+<p>Photos: {{ counts.photos }}. Users: {{ counts.users }}. Comments: {{ counts.comments }}.</p>
+<p><a href="/about">About us</a></p>
+{% endblock %}
